@@ -25,14 +25,20 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     template: `
         <div class="completer-holder form-group" ctrCompleter>
             <label [attr.for]="inputId">{{label}}</label>
-            <input #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="text" class="completer-input" ctrInput [ngClass]="inputClass"
+            <input #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="text" class="completer-input form-control" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
                 [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
                 [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
                 [overrideSuggested]="overrideSuggested" [openOnFocus]="openOnFocus" [fillHighlighted]="fillHighlighted" 
                 [openOnClick]="openOnClick" [selectOnClick]="selectOnClick" [selectOnFocus]="selectOnFocus"
                 (blur)="onBlur()" (focus)="onFocus()" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (click)="onClick($event)"
-                autocomplete="off" autocorrect="off" autocapitalize="off" />
+                autocomplete="off" autocorrect="off" autocapitalize="off" required/>
+            <div [hidden]="!(ctrInput.dirty && ctrInput.invalid)">
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+            
 
             <div class="completer-dropdown-holder"
                 *ctrList="dataService;
@@ -269,6 +275,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
             this._open = isOpen;
             this.opened.emit(isOpen);
         });
+        this._searchStr = this.initialValue || '';
     }
 
     public onBlur() {
