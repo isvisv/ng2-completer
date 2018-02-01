@@ -23,8 +23,9 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
 @Component({
     selector: "ng2-completer",
     template: `
-        <div class="completer-holder" ctrCompleter>
-            <input #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
+        <div class="completer-holder form-group" ctrCompleter>
+            <label [attr.for]="inputId">{{label}}</label>
+            <input #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="text" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
                 [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
                 [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
@@ -140,6 +141,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     @Input() public selectOnFocus = false;
     @Input() public initialValue: any;
     @Input() public autoHighlight = false;
+    @Input() public label = '';
 
     @Output() public selected = new EventEmitter<CompleterItem>();
     @Output() public highlighted = new EventEmitter<CompleterItem>();
