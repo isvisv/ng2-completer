@@ -79,7 +79,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
         border-width: 1px;
         border-style: solid;
         border-radius: 2px;
-        width: 250px;
+        width: 100%;
         padding: 6px;
         cursor: pointer;
         z-index: 9999;
@@ -90,6 +90,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
 
     .completer-row {
         padding: 5px;
+        padding-right: 0.75rem;
         color: #000000;
         margin-bottom: 4px;
         clear: both;
